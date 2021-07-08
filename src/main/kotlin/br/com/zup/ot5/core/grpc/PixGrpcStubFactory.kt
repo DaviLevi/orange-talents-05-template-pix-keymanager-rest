@@ -1,5 +1,6 @@
 package br.com.zup.ot5.core.grpc
 
+import br.com.zup.ot5.KeyManagerExcluiServiceGrpc
 import br.com.zup.ot5.KeyManagerRegistraServiceGrpc
 import io.grpc.ManagedChannel
 import io.micronaut.context.annotation.Factory
@@ -13,6 +14,12 @@ class PixGrpcStubFactory {
     fun registraPixStub(@GrpcChannel("pix") channel: ManagedChannel)
             : KeyManagerRegistraServiceGrpc.KeyManagerRegistraServiceBlockingStub{
         return KeyManagerRegistraServiceGrpc.newBlockingStub(channel)
+    }
+
+    @Singleton
+    fun excluiPixStub(@GrpcChannel("pix") channel: ManagedChannel)
+            : KeyManagerExcluiServiceGrpc.KeyManagerExcluiServiceBlockingStub{
+        return KeyManagerExcluiServiceGrpc.newBlockingStub(channel)
     }
 
 }
