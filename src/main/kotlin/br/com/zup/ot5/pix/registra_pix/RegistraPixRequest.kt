@@ -6,24 +6,23 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import io.micronaut.core.annotation.Introspected
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Introspected
 @ChavePixValida
 data class RegistraPixRequest(
-    @field:NotNull @field:JsonFormat(shape = JsonFormat.Shape.STRING) val tipoChave: TipoChave,
-    @field:NotNull @field:JsonFormat(shape = JsonFormat.Shape.STRING) val tipoConta: TipoConta,
-    @field:NotBlank @field:Size(max = 77) val chave: String
+    @field:NotNull @field:JsonFormat(shape = JsonFormat.Shape.STRING) val tipoChave: TipoChave?,
+    @field:NotNull @field:JsonFormat(shape = JsonFormat.Shape.STRING) val tipoConta: TipoConta?,
+    @field:Size(max = 77) val chave: String?
 ){
 
     fun paraGrpcRequest(idTitular: String) : RegistraChavePixRequest {
         return RegistraChavePixRequest.newBuilder()
             .setIdTitular(idTitular)
-            .setTipoChave(br.com.zup.ot5.TipoChave.valueOf(tipoChave.name))
-            .setTipoConta(br.com.zup.ot5.TipoConta.valueOf(tipoConta.name))
-            .setValorChave(chave)
+            .setTipoChave(br.com.zup.ot5.TipoChave.valueOf(tipoChave?.name ?: "TIPO_CHAVE_DESCONHECIDO"))
+            .setTipoConta(br.com.zup.ot5.TipoConta.valueOf(tipoConta?.name ?: "TIPO_CONTA_DESCONHECIDO"))
+            .setValorChave(chave ?: "")
             .build()
     }
 

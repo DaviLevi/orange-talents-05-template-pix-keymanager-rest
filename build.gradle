@@ -12,6 +12,7 @@ group = "br.com.zup.ot5"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 micronaut {
@@ -30,6 +31,13 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     runtimeOnly("ch.qos.logback:logback-classic")
+
+    // test
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.hamcrest:hamcrest-core:2.2")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.mockito:mockito-junit-jupiter:3.8.0")
+    testImplementation("org.mockito:mockito-inline:3.8.0")
 
     // serializacao/deserializacao
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
