@@ -1,4 +1,4 @@
-package br.com.zup.ot5
+package br.com.zup.ot5.compartilhado
 
 import br.com.zup.ot5.pix.registra_pix.TipoChave
 import org.junit.jupiter.api.Assertions

@@ -21,12 +21,9 @@ class KeyManagerGrpcExceptionHandler : ExceptionHandler<StatusRuntimeException, 
         val status = io.grpc.protobuf.StatusProto.fromThrowable(e)
         val codigo = e?.status?.code
 
-        println(codigo)
-        e?.printStackTrace()
-
         when(codigo){
             Status.Code.INVALID_ARGUMENT -> {
-                val details = status?.detailsList?.last()?.unpack(BadRequest::class.java)
+                val details = if(status?.detailsList?.isEmpty() == true) BadRequest.getDefaultInstance() else status?.detailsList?.last()?.unpack(BadRequest::class.java)
                 val body = Erro(
                     status = HttpStatus.BAD_REQUEST.code,
                     titulo = "Dados invalidos",
