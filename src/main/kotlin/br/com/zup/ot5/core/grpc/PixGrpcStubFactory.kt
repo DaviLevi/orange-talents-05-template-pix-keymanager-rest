@@ -1,5 +1,6 @@
 package br.com.zup.ot5.core.grpc
 
+import br.com.zup.ot5.KeyManagerConsultaServiceGrpc
 import br.com.zup.ot5.KeyManagerExcluiServiceGrpc
 import br.com.zup.ot5.KeyManagerRegistraServiceGrpc
 import io.grpc.ManagedChannel
@@ -20,6 +21,12 @@ class PixGrpcStubFactory {
     fun excluiPixStub(@GrpcChannel("pix") channel: ManagedChannel)
             : KeyManagerExcluiServiceGrpc.KeyManagerExcluiServiceBlockingStub{
         return KeyManagerExcluiServiceGrpc.newBlockingStub(channel)
+    }
+
+    @Singleton
+    fun consultaPixStub(@GrpcChannel("pix") channel: ManagedChannel)
+            : KeyManagerConsultaServiceGrpc.KeyManagerConsultaServiceBlockingStub{
+        return KeyManagerConsultaServiceGrpc.newBlockingStub(channel)
     }
 
 }
