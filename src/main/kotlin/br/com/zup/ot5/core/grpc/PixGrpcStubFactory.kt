@@ -2,6 +2,7 @@ package br.com.zup.ot5.core.grpc
 
 import br.com.zup.ot5.KeyManagerConsultaServiceGrpc
 import br.com.zup.ot5.KeyManagerExcluiServiceGrpc
+import br.com.zup.ot5.KeyManagerListaServiceGrpc
 import br.com.zup.ot5.KeyManagerRegistraServiceGrpc
 import io.grpc.ManagedChannel
 import io.micronaut.context.annotation.Factory
@@ -27,6 +28,12 @@ class PixGrpcStubFactory {
     fun consultaPixStub(@GrpcChannel("pix") channel: ManagedChannel)
             : KeyManagerConsultaServiceGrpc.KeyManagerConsultaServiceBlockingStub{
         return KeyManagerConsultaServiceGrpc.newBlockingStub(channel)
+    }
+
+    @Singleton
+    fun listaPixStub(@GrpcChannel("pix") channel: ManagedChannel)
+            : KeyManagerListaServiceGrpc.KeyManagerListaServiceBlockingStub{
+        return KeyManagerListaServiceGrpc.newBlockingStub(channel)
     }
 
 }
