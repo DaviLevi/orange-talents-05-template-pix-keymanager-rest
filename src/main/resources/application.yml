@@ -8,6 +8,6 @@ grpc:
     max-retry-attempts: 5
   channels:
     pix:
-      address: 'localhost:50051'
+      address: ${APPLICATION_HOST:http://localhost:50051}
       plaintext: true
       max-retry-attempts: 5
