@@ -2,6 +2,8 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      java: corretto11
     commands:
       - curl -o /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl
       - curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
@@ -24,7 +26,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...  
       - docker build -t $DEPLOYMENT_NAME . 
-      - docker tag $DEPLOYMENT_NAME:$IMAGE_TAG $URL_REPO/$DEPLOYMENT_NAME:$IMAGE_TAG
+      - docker tag $DEPLOYMENT_NAME:$IMAGE_TAG $URL_REPO:$IMAGE_TAG
       - echo Build completed on `date`  
 
   post_build:
@@ -34,7 +36,7 @@ phases:
       - echo Push completed on `date`  
       - echo deploying to cluster...
       - helm version --short
-      - helm lint pipeline/helm/$DEPLOYMENT_NAME --values pipeline/helm/$DEPLOYMENT_NAME/values.yaml
+      - helm lint pipeline/helm/orange-talents-05-template-pix-keymanager-rest --values pipeline/helm/orange-talents-05-template-pix-keymanager-rest/values.yaml
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --role-arn $ARN_ROLE
       - kubectl get nodes
-      - helm upgrade -i $DEPLOYMENT_NAME pipeline/helm/$DEPLOYMENT_NAME/ --values pipeline/helm/$DEPLOYMENT_NAME/values.yaml
+      - helm upgrade -i $DEPLOYMENT_NAME pipeline/helm/orange-talents-05-template-pix-keymanager-rest/ --values pipeline/helm/orange-talents-05-template-pix-keymanager-rest/values.yaml

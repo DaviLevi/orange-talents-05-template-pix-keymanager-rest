@@ -80,3 +80,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+application:
+  APPLICATION_HOST: localhost:5051
